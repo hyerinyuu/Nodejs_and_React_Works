@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>No</th>
+            <th>도서명</th>
+            <th>저자</th>
+            <th>출판사</th>
+            <th>출판년도</th>
+            <th>가격</th>
+        </tr>
+        <% // if(객체) : 객체가 null이 아니면 ? %>
+        <% if(books){ %>
+            <% books.forEach(function(book){ %>
+                <tr>
+                    <td></td>
+                    <td><%- book.BName %></td>
+                    <td><%- book.BWriter %></td>
+                    <td><%- book.BComp %></td>
+                    <td><%- book.BYear %></td>
+                    <td><%- book.BPrice %></td>
+                </tr>
+            <% }) %>
+        <% }else { %>
+            <tr class="w3-center">
+                <td colspan="6">데이터가 없습니다.</td>
+            </tr>
+        <% } %>
+        
+    </table>
+</body>
+</html>
