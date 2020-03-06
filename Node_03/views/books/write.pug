@@ -23,7 +23,10 @@ block body
             $("#btn_delete").click(function(){
                 if(confirm("삭제할까요?")){
                     let id = $(this).data('id')
-                    document.location.replace("/book/delete/" + id)
+                    // 2020.03.06 data-id로 id를 가져오는 코드에서 el tag로 변경
+                    // router에서 보낸 json 데이터를
+                    // js코드에 포함하때는 '#{book._id}'
+                    document.location.replace("/book/delete/#{book._id}")
                 }
                 
             })

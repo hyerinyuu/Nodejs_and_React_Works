@@ -8,4 +8,27 @@
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
   </body>
+  <%#
+    ejs 3.0 이상 버전에서 include file을 할 경우에는
+    다음과 같이 해줘야 함
+    간혹 데이터를 물고 오지 않는 경우에는 
+    include ('footer', {book:book}) 와 같이
+    데이터를 명시해주면 됨
+
+    2.4 이하 버전에서는 
+     include footer.ejs
+
+    include footer.ejs 형식은 3.0미만에서 사용가능
+    include ('footer') 형식은 2.4부터 사용 가능하며
+    3.0 이상에서는 기본형식으로 사용해야함
+
+    include 한 파일에서 router에서 전달한 데이터를 인식 못할 경우가
+    있기 때문에 데이터를 전달해 주는 것이 좋다.({books:books})
+
+    html tag escape
+    '%-' :  tag가 적용되어 효과가 보임
+    '%=' : tag excaper가 적용되어 tag가 그대로 보임
+
+  %> 
+  <%- include ('footer', {book:book, books:books}) %>
 </html>
