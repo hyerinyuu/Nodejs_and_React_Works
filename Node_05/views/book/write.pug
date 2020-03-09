@@ -1,0 +1,35 @@
+extends ../index
+
+block body
+    script.
+        $(function(){
+            $("#btn_insert").click(function(){
+               $('form').submit()
+            })
+
+            $("#btn_delete").click(function(){
+                if(confirm("도서를 삭제하시겠습니까?")){
+                    document.location.replace('/book/delete/#{book._id}')
+                }
+            })
+
+            $("#btn_list").click(function(){
+                document.location.replace("/book")
+            })
+
+        })
+
+    form(method='POST')
+        - var inputClasses = [ 'w3-input']
+        .w3-container
+            input#bTitle(name='bTitle', value=book.bTitle, type='text', class=inputClasses, placeholder='도서명')
+        .w3-container
+            input#bWriter(name='bWriter', value=book.bWriter, type='text', class=inputClasses, placeholder='저자명')
+        .w3-container
+            input#bComp(name='bComp', value=book.bComp, type='text', class=inputClasses, placeholder='출판사')
+        .w3-container
+            input#bPrice(name='bPrice', value=book.bPrice, type='number', class=inputClasses, placeholder='가격') 
+        -var btnClasses = ['w3-button','w3-blue','w3-right','w3-margin-right']  
+        button#btn_insert(type='button', class=btnClasses)= btnText
+        button#btn_delete(type='button', class=btnClasses, data-id=book._id).w3-red 삭제
+        button#btn_list(type='button', class=btnClasses).w3-green 목록으로

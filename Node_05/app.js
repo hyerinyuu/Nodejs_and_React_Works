@@ -1,4 +1,4 @@
-// 미들웨어 설정하기
+// 미들웨어 설정 부분
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -6,42 +6,35 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var mongoose = require('mongoose')
-// 미들웨어
 
-// mongoDB 연결 설정 객체 가져오기
-// mongoose를 통해서 mongoDB와 연결하여 기능을 수행할 때
-// 정상수행, 오류발생 등의 감식를 하기 위한 객체 선언
-var dbConn = mongoose.connection
+// mongoDB db연결 객체생성
+var dbConnection = mongoose.connection
 
-// dbConn에게 감시 이벤트를 선언
-dbConn.on("error", function(){
+dbConnection.on('error', function(){
   console.err
 })
 
-// 프로젝트가 시작될 때 한번만 감시를 하고
-// 이후 연결이 유지되면 더이상 감시하지 말라
-dbConn.once("open", function(){
-  console.log("MongoDB Connecting Successfully")
+// once : db를 연결할때 최초 한번만 감시를 하고 이후 연결이 유지되면 더이상 감시x
+dbConnection.once('open', function(){
+  console.log('**(ONCE)MONGODB CONNECTED SUCCESFULLY**')
 })
 
-dbConn.on("disconnected", function(){
-  console.log("MongoDB Connection Closed")
+dbConnection.on('disconnected', function(){
+  console.log('**MONGODB CONNECTION CLOSED**')
 })
 
-dbConn.on("connected", function(){
-  console.log("MongoDB Connected")
+dbConnection.on('connected', function(){
+  console.log('**MONGODB CONNECTED**')
 })
 
-
-// 실제 커넥션 생성부
-mongoose.connect("mongodb://localhost/mydb")
+// 실제 CONNECTION 생성 부분
+mongoose.connect('mongodb://localhost/mydb')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+// myRouter를 사용하기 위해서 myRouter라는 이름의 객체 생성
+var myRouter = require('./routes/myRouter')
 
-// 작성한 myRouter.js를 사용할 수 있도록 객체 생성
-// require로 요청할때는 .js를 일반적으로 생략한다.
-var myRouter = require("./routes/myRouter")
 
 var app = express();
 
@@ -57,8 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
-app.use("/book", myRouter)
+app.use('/book', myRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

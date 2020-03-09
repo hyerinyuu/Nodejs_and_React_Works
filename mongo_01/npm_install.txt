@@ -1,3 +1,11 @@
+    express '디렉토리명'
+    npm install
+    ejs 3.*대로 update하려면 package.json파일의 ejs버전 *로 변경하고
+    npm install -s ejs 해주기
+    pug 사용하려면 app.js의 view engine jade => pug로 바꿔주고
+    npm install pug명령어 터미널에 입력해서 pug install 해주기
+    (or express --pug(or --ejs) 프로젝트명)
+
     npm install -save cookie-parser
     npm install -save debug
     npm install -save express
