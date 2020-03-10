@@ -3,6 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
+var bodyParser = require('body-Parser')
+
 // 폴더의 index.js파일을 읽어들일때는 굳이 명시해주지 않아도
 // 알아서 읽음 (== ./models/index)
 // ##### ./models 폴더에 index.js 파일이 있는지 찾아서 
@@ -23,8 +26,19 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
+
+/*
+  express의 json과 urlencoded는 대용량 Text(데이터)를
+  json 구조나 post로 전송할 때 문제를 일으켜서
+  body-parser의 도움을 받아 대용량 Text를 업로드 할 수 있도록 한다.
+*/
+app.use(bodyParser.json({limit:"10mb"}))
+app.use(bodyParser.urlencoded({limit:"10mb", extended:true, parameterLimit:10000000}))
+
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

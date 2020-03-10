@@ -2,7 +2,7 @@
 
 // bbs Model 선언부
 module.exports = function(sequelize, DataTypes){
-    return sequelize.define("tbl_bbs",{
+    return sequelize.define("tbl_board",{
         b_id : {
             type : DataTypes.INTEGER,
             autoIncrement : true,
@@ -21,20 +21,19 @@ module.exports = function(sequelize, DataTypes){
             allowNull : false        
         },
         b_subject : {
-            type : CharacterData.STRING
+            type : DataTypes.STRING
         },
         b_text : {
-            type : DataTypes.BLOB,
-    
+            type : DataTypes.BLOB('long')
         },
         b_count : {
             type : DataTypes.INTEGER,
             allowNull : true,
             defaultValue : 0
         }
-    
+        
     }, { timestamps : true}
- 
+    
     )
     
 }

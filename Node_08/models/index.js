@@ -1,4 +1,4 @@
-const path = reauire('path')
+const path = require('path')
 
 /*
     현재 작동되는 환경을 developement환경으로 설정하고
