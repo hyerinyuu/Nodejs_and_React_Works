@@ -27,7 +27,7 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 // 위에서 생성한 config 변수(객체)를 router에게 전달하기
-var gjBusRouter = require('./routes/gjBusRouter')(config)
+var gjBusRouter = require('./routes/gjBusRouter')(app, config)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
