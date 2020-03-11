@@ -1,0 +1,11 @@
+{
+    "gjbus" : {
+        "station_url" : "http://api.gwangju.go.kr/json/stationInfo",
+        "arrive" : "http://api.gwangju.go.kr/json/arriveInfo",
+        "apiKey" : "YOUR_DATA_GO_KR_API_KEY"
+
+    }
+
+
+
+}

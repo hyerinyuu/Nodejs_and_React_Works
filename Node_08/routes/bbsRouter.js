@@ -1,5 +1,16 @@
 var express = require('express')
 var router = express.Router()
+
+// moment와 moment-timezone은 가급적 
+// 순서를 지켜서 require해주는 것이 좋다.
+var moment = require('moment')
+// moment timezone은 require만 해주면 moment 자체 내에서 호출하여
+// 사용하는 middleware
+var moment_timezone = require('moment-timezone')
+
+// moment를 사용하기 앞서 사용할 시간대를 설정해주어야한다.
+moment.tz.setDefault('Asia/Seoul')
+
 var bbsVO = require('../models/bbsVO').default
 
 var {bbsVO} = require("../models")
@@ -16,8 +27,8 @@ router.get('/', function(req, res){
 
 router.get("/insert", function(req,res){
     let bbsVO = {
-        b_date : '2020-03-10',
-        b_time : '11:04:19',
+        b_date : moment().format('YYYY[-]MM[-]DD'),
+        b_time : moment().format('HH:mm:ss'),
     }
     res.render('bbs/write', {
         bbsVO : bbsVO
