@@ -134,28 +134,6 @@ module.exports = function(app,config){
             })
             
         })
-        /*
-        gjStation.findAndCountAll({
-            limit : pageLimit,
-            offset : offset
-        })
-        .then(function(result){
-
-            let pageCount = Math.ceil(reesult.count / pageLimit)
-            let pageArray = paginate.getArrayPages(req)(
-                pageLimit, pageCount, req.query.page
-            )
-            res.render("gjbus/station",
-            {
-                stations:result.rows,       // 실제 리스트 데이터
-                pageCount:pageCount,        
-                itemCount:result.count,     // 전체 개수
-                currentPage:req.query.page,
-                pages:pageArray
-            },
-            )
-        })
-        */
         // gjStation.find({}).skip(100).limit(100).sort({BUSSTOP_NAME:'asc'}).exec(function(err,stations){
         //     res.render("gjbus/station", {stations:stations})
         // })
