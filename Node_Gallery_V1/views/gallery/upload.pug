@@ -11,7 +11,37 @@ block content
                 document.location.replace('/gallery')
             })
 
+            var updateCallBack = function(){
+                $.ajax({
+                    url : '/gallery/update/#{gallery._id}',
+                    type : 'PUT',
+                    //- form을 ajax로 보낼때는 serialize()를 이용함
+                    data : $('form').serialize()
+                })
+                //- ES5의 promise방식
+                .done(function(result){     // 성공시(success)
+                    if(result.msg == 'UPDATE SUCCESS'){
+                        alert(result.data.nModified + "개 변경 성공")
+                        document.location.replace('/gallery/view/#{gallery._id}')
+                    }else if(result.msg == 'UPDATE FAIL'){
+                        if(result.data.nModified < 1){
+                            alert('DATA UPDATE FAILED')
+                        }
+                    }
+                })
+                .fail(function(err){        // 실패시(error)
+                    alert('서버 통신 오류')
+                })
+                //- .always(function(){         // 항상
+                //-     alert('항상')
+                //- })         
+                
+            }
+            let version = '!{gallery.__v}'
+
             $("button.btn-save").click(function(){
+                //- mongoDB에 insert를 하면 __V의 값의 default가 0으로 세팅되어잇음
+                // 이 값을 이용해서 수정으로 넘겨주기
                 if($("#gStrTitle").val() == ''){
                     alert('사진 제목을 반드시 입력해주세요')
                     $("#gStrTitle").focus()
@@ -22,10 +52,18 @@ block content
                     $("#gStrText").focus()
                     return false
                 }
+                
+                if(version != '' ){
+                    updateCallBack()
+                    return false
+                }
+
                 if($("#gOriginalPhotoName").val() == ''){
                     alert('사진 파일을 반드시 업로드해주세요')
                     return false
                 }
+                alert('추가')
+
                 $('form').submit()
             })
         })

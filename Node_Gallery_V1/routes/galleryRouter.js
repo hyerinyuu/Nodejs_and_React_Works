@@ -39,7 +39,50 @@ var saveOptions = multer.diskStorage(
 var saveFile = multer({storage:saveOptions}).single("gOriginalPhotoName")
 
 router.get('/', (req,res) => {
-    res.render('index')
+    galleryVO.find({})
+    .exec((err, galleries)=>{
+        res.render('index', {galleryList:galleries})
+    })
+})
+
+router.get('/view/:id', (req,res) => {
+    let id = req.params.id
+    galleryVO.findOne({_id:id})
+    .exec((err,data) => {
+        res.render('gallery/view', {gallery:data})
+    })
+})
+
+router.get('/update/:id', (req,res) => {
+    let id = req.params.id
+    galleryVO.findOne({_id:id})
+    .exec((err,data) => {
+        res.render('gallery/upload', {gallery:data})
+    })
+})
+
+// put method
+// RESTful 방식에서 사용할 수 있는 4가지 method
+// get, post, put, delete
+// 이중 put과 delete는 ajax로만 구현가능
+router.put('/update/:id', (req,res) => {
+    var id = req.params.id
+    galleryVO.update({_id:id}, {$set: req.body})
+    .exec((err,data)=> {
+        // res.redirect('/gallery/view/' + id)
+        // ajax를 사용했을때 redirect로 id값을 날려주면 자꾸 undefined가 뜸
+        if(err){
+            res.json({
+                msg : 'UPDATE FAIL',
+                data : data
+            })
+        }else {
+            res.json({
+                msg : 'UPDATE SUCCESS',
+                data : data
+            })
+        }
+    })
 })
 
 router.get('/upload', (req,res) => {
