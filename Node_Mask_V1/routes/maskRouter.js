@@ -26,4 +26,22 @@ router.get('/search',(req,res) =>{
     })
 })
 
+router.get('/getjson',(req,res) =>{
+    let address = req.query.address
+    let api_url = encodeURI(maskDataURL)
+
+    api_url += "?address=" + encodeURI(address)
+
+    console.log(api_url)
+    request(api_url, (err,response,data)=>{
+        if(err)
+            res.send(err)
+        else
+            var stores = JSON.parse(data).stores
+            res.json(stores)
+        
+    })
+})
+
+
 module.exports = router

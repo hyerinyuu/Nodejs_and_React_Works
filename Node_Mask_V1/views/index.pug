@@ -23,17 +23,24 @@ block content
 
       function getIcon(remain) {
           if(remain == 'plenty') {
-            return '아이콘'
+            return '/images/marker_green.png'
           } else if(remain == 'some') {
-            return '아이콘' 
+            return '/images/marker_yellow.png' 
           } else if(remain == 'fiew'){
-
+            return '/images/marker_gray.png'
           }else{
-
+            return '/images/marker_red.png'
           }
 
-
       }
+
+      function getStat(remain){
+        if(remain == 'plenty'){
+            return "많음"
+        }
+      }
+
+
 
       // 마커 찍기
       marketList.forEach(function(market,index){
@@ -41,10 +48,10 @@ block content
         new Tmapv2.Marker({
           position : new Tmapv2.LatLng(market.lat,market.lng),
           icon: getIcon(market.remain_stat),
-          iconSize : new Tmapv2.Size(50,25),
+          iconSize : new Tmapv2.Size(40,40),
           map : map,
           title : market.name + "<br/>"
-                  + market.remain_stat + "<br/>"
+                  + getStat(market.remain_stat) + "<br/>"
                   + market.addr
         })
 
@@ -80,8 +87,11 @@ block content
             if market.remain_stat == 'plenty'
               td.w3-green= remain[market.remain_stat]
             else if market.remain_stat == 'some'
-              td.w3-  
-              td= remain[market.remain_stat]
+              td.w3-yellow= remain[market.remain_stat]
+            else if market.remain_stat == 'fiew'
+              td.w3-gray= remain[market.remain_stat]
+            else
+              td.w3-black= remain[market.remain_stat]            
           else            
             td 데이터없음 
           td= market.created_at
