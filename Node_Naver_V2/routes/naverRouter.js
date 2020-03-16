@@ -23,33 +23,45 @@ module.exports = (app) => {
     })
 
     router.get('/book', (req,res)=> {
-        let searchName = req.query.search
+        let search = req.query.search
         let api_url = naver.book_url
-        api_url += '?query=' + encodeURI(searchName)
+        api_url += '?query=' + encodeURI(search)
         
         request.get(reqOptions(api_url), (err,response,body) => {
-            
+           
             if(err){
                 console.log(err)
                 res.send(response.statusMessage)
+
             }else if(response.statusCode == 200){
                 var naverJson = JSON.parse(body).items
-                //res.json(naverJson)
-                
-                // DB에 값이 있음(DB에 저장된 값을 추출해서 보여주기)
-                if(Object.keys(result).length > 0) {
-                    naverJson.forEach(function(books){
-                        var bookVO = new bookVO
-                        bookVO.save((err,data)=>{
-                            res.render('book/list', {books:naverJson})
-                        })
-                    })
-                // DB에 값이 없음(naver APi에서 검색해서 조회한 후)
-                // DB에 저장해주기
-                }else{
-                    
 
-                }
+                naverJson.forEach(element => {
+                    element.search = search
+                })
+                //res.json(naverJson)
+
+                bookVO.find({search : search}, (err, data) => {
+                    var dataLength = Object.keys(data).length
+                    // DB에 데이터가 있으면 => DB에 있는 데이터로 조회 수행
+                    if(dataLength > 0){
+                        // res.json(books)
+                        res.render('book/list', {books:data})
+                    // DB에 데이터가 없으면 => 네이버 검색 API로 조회 후 DB에 insert 수행    
+                    }else{
+                        bookVO.collection.insertMany(naverJson, (err,result) => {
+                            console.log(err)
+                            console.log(result)
+
+                            if(err){
+                                res.send("DATA_BULKINSERT_FAILED")
+                            }else{
+                                // res.json(naverJson)
+                                res.render('book/list', {books:naverJson})
+                            }
+                        })
+                    }
+                })
                 
             }else{
                 res.send("unKnown Error response")

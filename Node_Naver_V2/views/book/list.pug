@@ -3,22 +3,29 @@ extends ../layout
 block content
     style.
         #quarterbox{
-            border : 1px solid black;
-            overflow: hidden;
-            width : 100%;
-            height : 100%;
+            overflow: auto;
+            width: 350px;
+            height: 500px;
+            margin: 20px;
         }
         .text-bold{
             font-weight: bold;
         }
+        .main-header{
+           margin: 20px;
+           padding: 10px;
+        }
+    div.main-header
+        h2 검색결과
+        hr
     each book,index in books
-        div#page_content.w3-main.w3-content.w3-center
-            div.w3-col-padding.w3-center
-                div#quarterbox.w3-quarter
-                    img(src=book.image)
-                    h4
-                        a(href=book.link) !{book.title}
-                    p#author 저자 : !{book.author}  &#40;!{book.publisher} &#41;
+        div.w3-container.w3-quarter.w3-center.top-div
+            div#quarterbox.w3-container.w3-quarter.w3-center.bottom-div
+                img(src=book.image)
+                h4
+                    a(href=book.link) !{book.title}
+                p#author
+                p#author 저자 : !{book.author}  &#40;!{book.publisher} &#41;
                     p#price &#8361;!{book.price}
                     p#pubdate 출판년월일 : !{book.pubdate}
                     p#isbn ISBN : !{book.isbn}

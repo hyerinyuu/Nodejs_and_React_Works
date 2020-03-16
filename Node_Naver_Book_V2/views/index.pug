@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  nav.navbar.navbar-expand-sm.bg-dark.navbar-dark.d-flex.fixed-top
+    ul.navbar-nav
+      li.nav-item.active
+        a.nav-link(href="/") MovieSearch
+
+    form(action='/naver/book', method='POST').form-inline.ml-auto
+      input(name='search' type="text" placeholder="Search").form-control
+      button.btn.btn-success(type="submit") Search
+
+    ul.navbar-nav.ml-auto
+      li.nav-item.active
+        a.nav-link(href="#") SignUp
+       
+

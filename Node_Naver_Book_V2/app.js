@@ -3,16 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var mongoose = require('mongoose');
-
-var dbConn = mongoose.connection
-dbConn.once("open", function(){
-  console.log('MONGODB OPEN SUCCESFULLY')
-})
-
-dbConn.on('error', function(){
-  console.err
-})
+var mongoose = require('mongoose')
 
 mongoose.connect('mongodb://localhost/mydb')
 
@@ -20,7 +11,7 @@ var app = express();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var naverRouter = require('./routes/naverRouter')(app);
+var naverRouter = require('./routes/naverRouter');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

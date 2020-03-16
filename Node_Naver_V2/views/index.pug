@@ -1,6 +1,31 @@
 extends layout
 
 block content
-  form(action='naver/book', method='GET')
-    input(name='search' type='text' placeholder='Search')
-    button(type='submit') search
+  style.
+    h1 {
+      font-weight: bold;
+    }
+    .searchbox {
+      width: 400px;
+    }
+    .searchdiv{
+      position: absolute;
+      top: 370px;
+      left: 720px;
+
+    }
+  script.
+    $(function(){
+      $(".btn-search").click(function(){
+        if($(".searchbox").val() == ''){
+          alert('검색어를 입력하세요')
+          return false
+        }
+      })
+    })
+  div.searchdiv
+    h1 Naver Book Search API
+    
+    form(action='naver/book', method='GET').form-inline
+      input(name='search' type='text' placeholder='검색어를 입력하세요').w3-input.searchbox
+      button(type='submit').w3-btn.w3-blue.btn-search search

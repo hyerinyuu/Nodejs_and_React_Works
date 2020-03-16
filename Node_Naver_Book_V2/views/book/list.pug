@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+    each movie, index in movies
+        div.container
+            h2 
+                a(href=movie.link) !{movie.title}&#40;!{movie.pubDate}&#41;	&#124; !{movie.userRating}
+            div.card(style="width:400px")
+            br
+            p
+                img.card-img-top(src=movie.image alt="movie image" style="width:30%")
+            div.card-body
+                h4.card-title(style="font-weight:bold") 감독 : !{movie.director}
+                p.card-text !{movie.actor}
+            br
+        
+        div.col-lg-3.col-md-6.mb-4
+            div.card.h-100
+                img.card-img-top(src=movie.image alt="상품이미지" style="width:30%")
+                div.card-body
+                    h4.card-title(style="font-weight-bold") 감독 : !{movie.director}
+                    p.card-text !{movie.actor}
