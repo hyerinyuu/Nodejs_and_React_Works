@@ -1,0 +1,6 @@
+extends layout
+
+block content
+  form(action='naver/book', method='GET')
+    input(name='search' type='text' placeholder='Search')
+    button(type='submit') search
