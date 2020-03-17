@@ -1,0 +1,21 @@
+nav.main-menu ul {
+  background-color: yellowgreen;
+  list-style: none;
+  display: flex;
+}
+
+nav.main-menu ul li {
+  display: inline-block;
+}
+nav.main-menu ul li a {
+  display: inline-block;
+  padding: 1rem;
+  text-decoration: none;
+  background-color: yellowgreen;
+  color: black;
+}
+
+nav.main-menu ul li a:hover {
+  background-color: darkgray;
+  color: black;
+}
