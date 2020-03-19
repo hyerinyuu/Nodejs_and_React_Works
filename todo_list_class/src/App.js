@@ -27,6 +27,12 @@ class App extends Component {
   };
 
   handleCreate = () => {
+    // **************************************
+    //              [this scope change issue]
+    // 화살표함수의 this == app.js
+    // 만약 handleCreate = function(){}와같은 전통적인 script함수를 사용하면
+    // this == handleCreate가 되어 이 함수는 정상작동하지 않게 된다.(state가 정의되지 않아서)
+    // **************************************
     const { input, todoList } = this.state;
     this.setState({
       input: "",
@@ -40,12 +46,15 @@ class App extends Component {
   };
 
   handleToggle = id => {
+    // ====================여기서부터
+
+    // this : 화살표 함수로 되어있는 이벤트 핸들러는
+    // this가 바로 현재 component다
+    // this == App.js의 context(문맥, thread의 모든 정보를 담고 있는 것)
     const { todoList } = this.state;
 
     // id 매개변수에 담겨있는 값이 객체 배열의 몇번째 위치값이냐?
     const index = todoList.findIndex(todo => todo.id === id);
-
-    // ====================여기서부터
 
     // 인덱스에 해당하는 요소를 추출
     const selectTodo = todoList[index];
