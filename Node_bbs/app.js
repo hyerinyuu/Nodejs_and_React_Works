@@ -25,7 +25,6 @@ var usersRouter = require("./routes/users");
 var bbsRouter = require("./routes/bbsRouter");
 
 var app = express();
-
 // 아래쪽 use()들이 cors정책에 걸릴수도 있으니까
 // 이 위치에 선언해주는게 좋음
 app.use(cors());

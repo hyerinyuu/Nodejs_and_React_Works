@@ -16,10 +16,12 @@ var corsOption = {
 require("moment-timezone");
 moment.tz.setDefault("Asiz/Seoul");
 
-router.get("/", cors(corsOption), (req, res) => {
+router.get("/", (req, res) => {
   /*
     CORS 모듈 없이 CORS 정책을 허용하기 위한 설정
     모든 Router에 공통으로 설정해야함.
+    
+    2020/03/20 cors가 exios와 충돌해서 없애버림
 
   */
   // fetch시에 CORS를 사용하지 않겠음
@@ -31,7 +33,7 @@ router.get("/", cors(corsOption), (req, res) => {
   });
 });
 
-router.post("/insert", cors(corsOption), (req, res) => {
+router.post("/insert", (req, res) => {
   req.body.b_date = moment().format("YYYY[-]MM[-]DD");
   req.body.b_time = moment().format("HH:mm:ss");
 
@@ -42,4 +44,21 @@ router.post("/insert", cors(corsOption), (req, res) => {
   });
 });
 
+router.put("/", (req, res) => {
+  console.log("body 값 : ", req.body);
+  bbsVO.update({ _id: req.body._id }, { $set: req.body }).exec((err, data) => {
+    res.json(data);
+  });
+});
+
+router.delete("/", (req, res) => {
+  console.log("body값 : ", req.body);
+  bbsVO.deleteOne({ _id: req.body._id }).exec((err, data) => {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json(data);
+    }
+  });
+});
 module.exports = router;
