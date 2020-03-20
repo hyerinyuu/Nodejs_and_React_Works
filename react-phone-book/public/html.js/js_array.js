@@ -34,4 +34,4 @@ const { aa } = ajson;
 // 이렇게 선언하는것의 장점은 json객체의 값이 아무리 많아도 내가 원하는 값 하나만 알면
 // 변수를 길게 늘어뜨리지 않고 쉽게 사용가능함.
 // [변수의 분해 할당]
-console.log("const aa값 : ", aa); // aa라는 변수에 ajson.aa값만을 복사
+console.log("const aa값 : ", aa); // aa라는 변수에 ajson.aa값만을 복사  aa=='홍길동'
