@@ -1,30 +1,35 @@
 import React, { Component } from "react";
-import BucketItemview from "./BucketItemView";
+import BucketItemView from "./BucketItemView";
 import BucketItemEdit from "./BucketItemEdit";
 
 class BucketItem extends Component {
-  state = {
-    isEditing: false
-  };
-
+  state = { isEditing: false };
   handleOnEditing = () => {
     this.setState({ isEditing: !this.state.isEditing });
   };
+
   render() {
     const { bucketItem } = this.props;
+
+    const item_cancel = {
+      backgroundColor: "yellow",
+      color: "gray"
+    };
+
     return (
-      <tr>
+      <tr
+        onClick={this.handleOnEditing}
+        style={bucketItem.b_cancel ? item_cancel : {}}
+      >
         {this.state.isEditing ? (
           <BucketItemEdit
             bucketItem={bucketItem}
-            bucket_update={this.props.bucket_update}
             onEditing={this.handleOnEditing}
           />
         ) : (
-          <BucketItemview
+          <BucketItemView
             bucketItem={bucketItem}
             onEditing={this.handleOnEditing}
-            changeFlag={this.props.changeFlag}
           />
         )}
       </tr>
