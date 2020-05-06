@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import axios from "axios";
+
+const BBS_INSERT_URL = "http://localhost:8080/bbs/api/insert";
 
 class BBsWrite extends Component {
   state = {
@@ -48,6 +51,20 @@ class BBsWrite extends Component {
     });
   };
 
+  bbsInsert = () => {
+    let formData = new FormData();
+    formData.append("bbsDate", this.state.bbsDate);
+    formData.append("bbsAuth", this.state.bbsAuth);
+    formData.append("bbsTitle", this.state.bbsTitle);
+    formData.append("bbsText", this.state.bbsText);
+
+    // ajax처럼 serialize한 데이터는 안감
+    axios
+      .post(BBS_INSERT_URL, formData)
+      .then((result) => console.log(result))
+      .catch((error) => console.log(error));
+  };
+
   render() {
     return (
       <div>
@@ -92,7 +109,11 @@ class BBsWrite extends Component {
         </div>
 
         <div className="text-right">
-          <button type="button" className="btn btn-primary">
+          <button
+            type="button"
+            onClick={this.bbsInsert}
+            className="btn btn-primary"
+          >
             게시글 등록
           </button>
         </div>
